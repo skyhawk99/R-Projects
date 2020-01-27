@@ -1,0 +1,20 @@
+# GEOGRAPHIC DISTANCE IN R 
+# (CREDIT DR. DOMINIC ROYÉ)
+
+# Load packages
+library(tidyverse)
+library(sf)
+library(units)
+library(maps)
+library(rnaturalearth)
+
+# Convert points into an sf object using coordinate reference system (CRS)
+# WSG84
+cities <- st_as_sf(world.cities, coords = c("long", "lat"), crs = 4326)
+
+# Filter capital cities from cities 
+capital_cities <- filter(cities, capital == 1)
+
+# Create a new label combining capital city and country 
+capital_cities <- mutate(capital_cities, city_country = str_c(name, 
+  " (", country.etc, ")"))
