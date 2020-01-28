@@ -16,13 +16,12 @@ shinyUI(
                        textInput("sd", "Please Select the Standard Deviation", 3)),
       conditionalPanel(condtion = "input.Distribution == 'Exponential'",
                        textInput("lambda", "Please Select Exponential Lambda:", 1))
-      
-    ),
+                       ),
     
     mainPanel(
       plotOutput("myPlot")
+      )
     )
-  )
 )
 
 # SERVER.R
@@ -35,11 +34,8 @@ shinyServer(
      size <- input$sampleSize
      
      if(distType == "Normal"){
-       
        randomVec <- rnorm(size, mean = as.numeric(input$mean), sd = as.numeric(input$sd))
-     }
-     else {
-       
+     } else {
        randomVec <- rexp(size, rate = 1 / as.numeric(input$lambda))
      }
    
