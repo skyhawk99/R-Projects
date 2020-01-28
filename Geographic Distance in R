@@ -18,3 +18,25 @@ capital_cities <- filter(cities, capital == 1)
 # Create a new label combining capital city and country 
 capital_cities <- mutate(capital_cities, city_country = str_c(name, 
   " (", country.etc, ")"))
+  
+# Calculate distance (in meters) from Amsterdam to Abu Dhabi, Washington, and
+# Tokyo (separately)
+dist_amsterdam <- st_distance(slice(capital_cities, 10),
+                slice(capital_cities, (c(2, 220,205))))
+
+# Change distance measurement from meters to kilometers
+dist_amsterdam_km <- set_units(dist_amsterdam, "km")
+
+# Change data from units to a vector
+dist_amsterdam_vec <- as.vector(dist_amsterdam)
+
+# Calculate distance between all capital cities
+# (using an estimated distance matrix)
+m_distance <- st_distance(capital_cities)
+dim(m_distance)
+
+# Change distance measurement from meters to kilometers
+m_distance_km <- set_units(m_distance, "km")
+
+# Replace distances of zero meters with NA
+m_distance_km[m_distance_km == set_units(0, km)] <- NA
