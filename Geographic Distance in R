@@ -33,7 +33,6 @@ dist_amsterdam_vec <- as.vector(dist_amsterdam)
 # Calculate distance between all capital cities
 # (using an estimated distance matrix)
 m_distance <- st_distance(capital_cities)
-dim(m_distance)
 
 # Change distance measurement from meters to kilometers
 m_distance_km <- set_units(m_distance, "km")
